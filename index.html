@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高二有志 | 開かずの教室</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500&family=Noto+Serif+JP:wght@300;400;700&family=Zen+Kaku+Gothic+New:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 全体の基本設定（筑駒サイトのような洗練された黒背景） */
+        :root {
+            --bg-color: #050505;
+            --text-main: #f5f5f7;
+            --text-muted: #86868b;
+            --accent: #d4af37; /* 上品なゴールド */
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Zen Kaku Gothic New', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .serif {
+            font-family: 'Noto Serif JP', serif;
+            font-weight: 400;
+        }
+
+        /* --- アニメーションの準備 --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- ヒーローセクション（一番最初の画面） --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            letter-spacing: 0.2em;
+            margin: 0 0 20px 0;
+            text-shadow: 0 0 20px rgba(255,255,255,0.1);
+        }
+
+        .hero .subtitle {
+            font-size: 1rem;
+            letter-spacing: 0.4em;
+            color: var(--accent);
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .hero .catchphrase {
+            font-size: 1.2rem;
+            line-height: 2;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        /* スクロールを促すアイコン */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.6;
+            animation: bounce 2s infinite;
+        }
+        .scroll-indicator span {
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 10px;
+        }
+        .scroll-indicator .line {
+            width: 1px;
+            height: 40px;
+            background-color: var(--text-main);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-10px) translateX(-50%); }
+            60% { transform: translateY(-5px) translateX(-50%); }
+        }
+
+        /* --- 各セクション共通 --- */
+        section {
+            padding: 120px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 80px;
+            letter-spacing: 0.15em;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 1px;
+            background-color: var(--accent);
+            margin: 20px auto 0;
+        }
+
+        /* --- ストーリー（あらすじ） --- */
+        .story-text {
+            font-size: 1.1rem;
+            line-height: 2.2;
+            letter-spacing: 0.08em;
+            text-align: justify;
+        }
+
+        .story-text p {
+            margin-bottom: 2em;
+        }
+
+        /* --- 設立者の言葉 --- */
+        .message-box {
+            background-color: #0f0f0f;
+            border: 1px solid #222;
+            padding: 60px 40px;
+            position: relative;
+        }
+
+        .message-box::before {
+            content: '“';
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 6rem;
+            color: #222;
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            line-height: 1;
+        }
+
+        .message-text {
+            font-size: 1.2rem;
+            line-height: 2;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+            font-family: 'Noto Serif JP', serif;
+        }
+
+        .message-author {
+            text-align: right;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        /* --- フッター --- */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            border-top: 1px solid #222;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        /* スマホ用調整 */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            section { padding: 80px 20px; }
+            .section-title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <div class="fade-in">
+            <div class="subtitle">Kouni Yushi Presents</div>
+            <h1>開かずの教室</h1>
+            <div class="catchphrase serif">
+                日常の教室が、一通の手紙で迷宮に変わる。<br>
+                君は制限時間内に、この部屋から脱出できるか。
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>SCROLL</span>
+            <div class="line"></div>
+        </div>
+    </div>
+
+    <section>
+        <h2 class="section-title fade-in">STORY</h2>
+        <div class="story-text serif fade-in">
+            <p>「放課後のチャイムが鳴り終わるまでに、この教室の主を見つけなさい。」</p>
+            <p>文化祭の喧騒の中、一通の招待状に導かれて教室に入ったあなた。しかし、背後で重い音を立てて扉は閉ざされ、そこには奇妙なパズルと暗号だけが残されていた。</p>
+            <p>消えたクラス委員長の行方。黒板に書かれた意味深な数式。机の中に隠された古い手紙。<br>見慣れたはずの教室に隠された真実を解き明かし、究極の20分間を生き抜け。</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title fade-in">ABOUT US</h2>
+        <div class="story-text fade-in">
+            <p style="text-align: center; color: var(--accent); font-size: 1.2rem; margin-bottom: 30px;">高二有志とは</p>
+            <p>私たちは「文化祭の教室という日常を、非日常の迷宮へ変える」ことを目標に集まった有志団体です。単なるお化け屋敷や遊びではなく、物語性と論理性を極限まで追求した本格ミステリー体験を提供します。</p>
+            <p>すべての謎は完全オリジナル。高校二年生ならではの視点で、学校の備品や教科の知識を活かした、知的好奇心を刺激する仕掛けを数多くご用意しました。想定脱出失敗率は85%。あなたの挑戦をお待ちしています。</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title fade-in">MESSAGE</h2>
+        <div class="message-box fade-in">
+            <div class="message-text">
+                スマホの画面の中だけじゃない、自分の手で触れ、足で歩き、仲間と頭を抱えて解く喜び。<br><br>
+                そんな本物の熱狂を、この文化祭で作りたい。<br>
+                高二有志の挑戦は、ここから始まります。
+            </div>
+            <div class="message-author">
+                — 団体代表・高二有志 設立者
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2024 高二有志 All Rights Reserved.
+    </footer>
+
+    <script>
+        // 画面に要素が入ってきたら 'visible' クラスを追加する魔法のコード
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.2 // 要素が20%見えたらアニメーション開始
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // 一度表示されたら監視を終了
+                    }
+                });
+            }, observerOptions);
+
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+
+</body>
+</html>
