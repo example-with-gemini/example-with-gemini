@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高二有志 | 開かずの教室</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 全体の基本設定（硬派で清潔感のある企業サイト風） */
+        :root {
+            --bg-color: #ffffff;
+            --bg-gray: #f7f9fa;
+            --text-main: #222222;
+            --text-light: #666666;
+            --accent-blue: #0b2046; /* 企業サイトによくある深いネイビー */
+            --accent-line: #dcdcdc;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.8;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .serif {
+            font-family: 'Noto Serif JP', serif;
+        }
+
+        /* --- ヘッダー（企業サイト風ナビゲーション） --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid var(--accent-line);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            letter-spacing: 0.1em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        /* --- ヒーローセクション（メインビジュアル） --- */
+        .hero {
+            margin-top: 60px; /* ヘッダー分下げる */
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 10%;
+            background-color: var(--bg-gray);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 刃物や幾何学を思わせる鋭角なデザインあしらい */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 200%;
+            background-color: var(--accent-blue);
+            transform: rotate(-15deg);
+            z-index: 0;
+            opacity: 0.03;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            margin: 0 0 20px 0;
+            color: var(--accent-blue);
+            line-height: 1.2;
+        }
+
+        .hero .subtitle {
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero .catchphrase {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            letter-spacing: 0.05em;
+            margin-top: 30px;
+            border-left: 3px solid var(--accent-blue);
+            padding-left: 20px;
+        }
+
+        /* --- セクション共通 --- */
+        section {
+            padding: 100px 10%;
+        }
+
+        .bg-gray {
+            background-color: var(--bg-gray);
+        }
+
+        .section-title-wrapper {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: var(--accent-blue);
+            letter-spacing: 0.1em;
+            margin: 0 0 10px 0;
+        }
+        
+        .section-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        /* --- 導入（ストーリー） --- */
+        .story-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .story-text p {
+            margin-bottom: 1.5em;
+            text-align: justify;
+        }
+
+        .story-quote {
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: center;
+            margin: 40px 0;
+            color: var(--accent-blue);
+        }
+
+        /* --- 当団体の特徴（企業サイトの強み風） --- */
+        .features-grid {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            flex: 1;
+            background: #fff;
+            padding: 40px 30px;
+            border: 1px solid var(--accent-line);
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .feature-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--bg-gray);
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            line-height: 1;
+            font-family: 'Noto Serif JP', serif;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--accent-blue);
+            border-bottom: 2px solid var(--accent-blue);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        /* --- システム（流れ） --- */
+        .flow-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .flow-step {
+            display: flex;
+            margin-bottom: 30px;
+            background: #fff;
+            border: 1px solid var(--accent-line);
+        }
+
+        .flow-step-num {
+            background-color: var(--accent-blue);
+            color: #fff;
+            width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Noto Serif JP', serif;
+        }
+
+        .flow-step-content {
+            padding: 20px 30px;
+        }
+
+        .flow-step-content h4 {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .flow-step-content p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        /* --- よくあるご質問 --- */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--accent-line);
+            padding: 20px 0;
+        }
+
+        .faq-q {
+            font-weight: 700;
+            color: var(--accent-blue);
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .faq-a {
+            margin-top: 15px;
+            color: var(--text-main);
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .faq-icon {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            min-width: 25px;
+        }
+
+        /* --- お知らせ --- */
+        .news-list {
+            max-width: 800px;
+            margin: 0 auto;
+            border-top: 1px solid var(--accent-line);
+        }
+
+        .news-item {
+            display: flex;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--accent-line);
+            gap: 30px;
+        }
+
+        .news-date {
+            color: var(--text-light);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* --- メッセージ（代表挨拶風） --- */
+        .message-box {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px;
+            background-color: var(--bg-gray);
+            border-left: 5px solid var(--accent-blue);
+        }
+
+        .message-text {
+            font-size: 1.1rem;
+            line-height: 2;
+            margin-bottom: 30px;
+        }
+
+        .message-author {
+            text-align: right;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        /* --- フッター --- */
+        footer {
+            background-color: var(--accent-blue);
+            color: #ffffff;
+            padding: 60px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .footer-info h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        /* スマホ用調整 */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.2rem; }
+            section { padding: 60px 5%; }
+            .features-grid { flex-direction: column; }
+            .news-item { flex-direction: column; gap: 10px; }
+            footer { flex-direction: column; align-items: center; text-align: center; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">高二有志</div>
+        <div class="nav-links">
+            <a href="#about">私たちについて</a>
+            <a href="#features">当団体の特徴</a>
+            <a href="#system">参加システム</a>
+            <a href="#faq">よくあるご質問</a>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <div class="subtitle">非日常の迷宮へ、ようこそ。</div>
+            <h1 class="serif">開かずの教室</h1>
+            <div class="catchphrase">
+                日常の教室が、一通の手紙で迷宮に変わる。<br>
+                君は制限時間内に、この部屋から脱出できるか。
+            </div>
+        </div>
+    </div>
+
+    <section id="about">
+        <div class="section-title-wrapper">
+            <h2 class="section-title">STORY</h2>
+            <div class="section-subtitle">プロローグ</div>
+        </div>
+        <div class="story-container">
+            <div class="story-quote serif">
+                「放課後のチャイムが鳴り終わるまでに、この教室の主を見つけなさい。」
+            </div>
+            <div class="story-text">
+                <p>文化祭の喧騒の中、一通の招待状に導かれて教室に入ったあなた。しかし、背後で重い音を立てて扉は閉ざされ、そこには奇妙なパズルと暗号だけが残されていた。</p>
+                <p>消えたクラス委員長の行方。黒板に書かれた意味深な数式。机の中に隠された古い手紙。一見なんの変哲もない備品たちが、実はすべて一つの真実へと繋がるピースとなっている。</p>
+                <p>見慣れたはずの教室に隠された真実を解き明かし、究極の20分間を生き抜け。あなたの知力と洞察力が、今試される。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="bg-gray">
+        <div class="section-title-wrapper">
+            <h2 class="section-title">FEATURES</h2>
+            <div class="section-subtitle">当団体の強み</div>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-number">01</div>
+                <div class="feature-title">精緻に計算された謎</div>
+                <p>すべての謎解きは、高校二年生ならではの視点と各教科の知識をベースに完全オリジナルで設計。論理的な破綻を許さない、1ミリの狂いもない精緻なパズルをご提供します。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-number">02</div>
+                <div class="feature-title">圧倒的な没入空間</div>
+                <p>単なる教室を、物語の舞台へと作り変えました。照明、音響、小道具の一つひとつに至るまで妥協なき品質管理を行い、非日常の世界へとお客様を引き込みます。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-number">03</div>
+                <div class="feature-title">脱出成功率 15%</div>
+                <p>想定される脱出成功率はわずか15%。決して理不尽ではないものの、鋭い閃きとチームワークがなければ到達できない、絶妙な難易度調整を実現しました。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="system">
+        <div class="section-title-wrapper">
+            <h2 class="section-title">SYSTEM</h2>
+            <div class="section-subtitle">参加の流れ（解決事例）</div>
+        </div>
+        <div class="flow-container">
+            <div class="flow-step">
+                <div class="flow-step-num">01</div>
+                <div class="flow-step-content">
+                    <h4>チームの結成・入場</h4>
+                    <p>1チーム最大4名様での挑戦となります。入り口で注意事項の説明を受けた後、閉ざされた教室へとご案内いたします。</p>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="flow-step-num">02</div>
+                <div class="flow-step-content">
+                    <h4>探索と情報収集</h4>
+                    <p>制限時間は20分間。まずは部屋中に散りばめられた手がかりや不自然な違和感を、チーム全員で徹底的に洗い出してください。</p>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="flow-step-num">03</div>
+                <div class="flow-step-content">
+                    <h4>暗号の解読・論理の構築</h4>
+                    <p>集めた情報を組み合わせ、謎を解き明かします。行き詰まった際は、視点を変えることや、メンバーとの情報共有が「最善の解決策」となります。</p>
+                </div>
+            </div>
+            <div class="flow-step">
+                <div class="flow-step-num">04</div>
+                <div class="flow-step-content">
+                    <h4>最終解答・脱出</h4>
+                    <p>すべての謎を解き明かし、導き出された最後の答えを提示することで扉が開かれます。皆様の無事の生還をお祈りしております。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="bg-gray">
+        <div class="section-title-wrapper">
+            <h2 class="section-title">Q&A</h2>
+            <div class="section-subtitle">よくあるご質問</div>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-q">
+                    <span class="faq-icon">Q.</span>
+                    謎解きに初めて参加するのですが、楽しめますか？
+                </div>
+                <div class="faq-a">
+                    <span class="faq-icon">A.</span>
+                    はい、もちろんです。初心者の方でも段階的に解き進められるよう設計しており、どうしても難しい場合は適切なヒントシステムをご用意しております。
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">
+                    <span class="faq-icon">Q.</span>
+                    ホラー要素や脅かし要素はありますか？
+                </div>
+                <div class="faq-a">
+                    <span class="faq-icon">A.</span>
+                    本公演にホラー要素（お化け屋敷のような演出）は一切ございません。純粋な論理とひらめきによるミステリー体験をお楽しみいただけます。
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">
+                    <span class="faq-icon">Q.</span>
+                    整理券の配布はどのように行われますか？
+                </div>
+                <div class="faq-a">
+                    <span class="faq-icon">A.</span>
+                    各日午前9時より、本館3階の受付にて当日の時間指定整理券を配布いたします。定員に達し次第終了となりますので、お早めにお越しください。
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-title-wrapper">
+            <h2 class="section-title">NEWS</h2>
+            <div class="section-subtitle">お知らせ</div>
+        </div>
+        <div class="news-list">
+            <div class="news-item">
+                <div class="news-date">2024.10.15</div>
+                <div class="news-title">特設サイトを公開・リニューアルいたしました。</div>
+            </div>
+            <div class="news-item">
+                <div class="news-date">2024.10.10</div>
+                <div class="news-title">本公演の品質テスト（デバッグプレイ）が完了し、本番環境への移行が完了しました。</div>
+            </div>
+            <div class="news-item">
+                <div class="news-date">2024.09.01</div>
+                <div class="news-title">高二有志「開かずの教室」プロジェクトが正式に始動しました。</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray">
+        <div class="section-title-wrapper">
+            <h2 class="section-title">MESSAGE</h2>
+            <div class="section-subtitle">代表挨拶</div>
+        </div>
+        <div class="message-box">
+            <div class="message-text serif">
+                私たちは「文化祭の教室という日常を、非日常の迷宮へ変える」ことを目標に集まった有志団体です。単なる遊びではなく、物語性と論理性を極限まで追求した本格ミステリー体験の提供をお約束いたします。<br><br>
+                スマホの画面の中だけじゃない、自分の手で触れ、足で歩き、仲間と頭を抱えて解く喜び。そんな本物の熱狂を、この文化祭で作りたい。私たちの「努力」と「挑戦」の結晶を、ぜひご体感ください。
+            </div>
+            <div class="message-author">
+                — 高二有志 プロジェクト代表
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-info">
+            <h2 class="serif">高二有志</h2>
+            <p>第76回 文化祭 特別企画「開かずの教室」</p>
+            <p>場所：本館3階 3-B教室</p>
+        </div>
+        <div class="copyright">
+            &copy; 2024 高二有志 All Rights Reserved.
+        </div>
+    </footer>
+
+</body>
+</html>
